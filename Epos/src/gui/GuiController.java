@@ -25,8 +25,8 @@ public class GuiController {
 //			}
 //		});
 		
+		//Pravi se objekat klase InspirationQuoteAPI i poziva metoda koja vraca citat
 		InspirationQuoteAPI comm = new InspirationQuoteAPI();
-
 		InspirationQuote quote = comm.getQuote();
 		System.out.println(quote.getQuoteText());
 		
