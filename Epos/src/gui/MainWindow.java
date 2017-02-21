@@ -12,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame {
 
@@ -23,11 +26,12 @@ public class MainWindow extends JFrame {
 	private JButton btnGenerateQuote;
 	private JLabel lblQuoteText;
 	private JScrollPane scrollPane;
-	private JTextArea textArea;
+	private JTextArea areaQuoteText;
 	private JLabel lblQuoteLink;
-	private JTextField textField;
+	private JTextField txtQuoteLink;
 	private JLabel lblSenderLink;
-	private JTextField textField_1;
+	private JTextField txtSenderLink;
+	private JButton btnSaveQuote;
 
 	
 	/**
@@ -38,7 +42,7 @@ public class MainWindow extends JFrame {
 		setResizable(false);
 		setTitle("Motivation");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 826, 366);
+		setBounds(100, 100, 826, 410);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -51,9 +55,11 @@ public class MainWindow extends JFrame {
 		contentPane.add(getLblQuoteText());
 		contentPane.add(getScrollPane());
 		contentPane.add(getLblQuoteLink());
-		contentPane.add(getTextField());
+		contentPane.add(getTxtQuoteLink());
 		contentPane.add(getLblSenderLink());
-		contentPane.add(getTextField_1());
+		contentPane.add(getTxtSenderLink());
+		contentPane.add(getBtnSaveQuote());
+		setQuoteValues();
 	}
 	private JLabel getLblQuoteAuthor() {
 		if (lblQuoteAuthor == null) {
@@ -65,6 +71,7 @@ public class MainWindow extends JFrame {
 	private JTextField getTxtQuoteAuthor() {
 		if (txtQuoteAuthor == null) {
 			txtQuoteAuthor = new JTextField();
+			txtQuoteAuthor.setEditable(false);
 			txtQuoteAuthor.setBounds(186, 10, 311, 22);
 			txtQuoteAuthor.setColumns(10);
 		}
@@ -80,6 +87,7 @@ public class MainWindow extends JFrame {
 	private JTextField getTxtQuoteSender() {
 		if (txtQuoteSender == null) {
 			txtQuoteSender = new JTextField();
+			txtQuoteSender.setEditable(false);
 			txtQuoteSender.setBounds(186, 39, 311, 22);
 			txtQuoteSender.setColumns(10);
 		}
@@ -88,6 +96,18 @@ public class MainWindow extends JFrame {
 	private JButton getBtnGenerateQuote() {
 		if (btnGenerateQuote == null) {
 			btnGenerateQuote = new JButton("Generate quote");
+			btnGenerateQuote.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						changeQuote();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				
+			});
 			btnGenerateQuote.setBounds(524, 9, 275, 52);
 		}
 		return btnGenerateQuote;
@@ -103,15 +123,16 @@ public class MainWindow extends JFrame {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
 			scrollPane.setBounds(12, 108, 787, 120);
-			scrollPane.setViewportView(getTextArea());
+			scrollPane.setViewportView(getAreaQuoteText());
 		}
 		return scrollPane;
 	}
-	private JTextArea getTextArea() {
-		if (textArea == null) {
-			textArea = new JTextArea();
+	private JTextArea getAreaQuoteText() {
+		if (areaQuoteText == null) {
+			areaQuoteText = new JTextArea();
+			areaQuoteText.setEditable(false);
 		}
-		return textArea;
+		return areaQuoteText;
 	}
 	private JLabel getLblQuoteLink() {
 		if (lblQuoteLink == null) {
@@ -120,13 +141,14 @@ public class MainWindow extends JFrame {
 		}
 		return lblQuoteLink;
 	}
-	private JTextField getTextField() {
-		if (textField == null) {
-			textField = new JTextField();
-			textField.setBounds(186, 248, 613, 22);
-			textField.setColumns(10);
+	private JTextField getTxtQuoteLink() {
+		if (txtQuoteLink == null) {
+			txtQuoteLink = new JTextField();
+			txtQuoteLink.setEditable(false);
+			txtQuoteLink.setBounds(186, 248, 613, 22);
+			txtQuoteLink.setColumns(10);
 		}
-		return textField;
+		return txtQuoteLink;
 	}
 	private JLabel getLblSenderLink() {
 		if (lblSenderLink == null) {
@@ -135,12 +157,36 @@ public class MainWindow extends JFrame {
 		}
 		return lblSenderLink;
 	}
-	private JTextField getTextField_1() {
-		if (textField_1 == null) {
-			textField_1 = new JTextField();
-			textField_1.setBounds(186, 277, 613, 22);
-			textField_1.setColumns(10);
+	private JTextField getTxtSenderLink() {
+		if (txtSenderLink == null) {
+			txtSenderLink = new JTextField();
+			txtSenderLink.setEditable(false);
+			txtSenderLink.setBounds(186, 277, 613, 22);
+			txtSenderLink.setColumns(10);
 		}
-		return textField_1;
+		return txtSenderLink;
+	}
+	private JButton getBtnSaveQuote() {
+		if (btnSaveQuote == null) {
+			btnSaveQuote = new JButton("Save quote");
+			btnSaveQuote.setBounds(12, 309, 787, 53);
+		}
+		return btnSaveQuote;
+	}
+	
+	//MANUELNO NAPRAVLJENE METODE
+	
+	//Metoda za postavljanje parametara u polja
+	private void setQuoteValues(){
+		txtQuoteAuthor.setText(GuiController.quote.getQuoteAuthor());
+		txtQuoteSender.setText(GuiController.quote.getSenderName());
+		txtQuoteLink.setText(GuiController.quote.getQuoteLink());
+		txtSenderLink.setText(GuiController.quote.getSenderLink());
+		areaQuoteText.setText(GuiController.quote.getQuoteText());
+	}
+	
+	private void changeQuote() throws ParseException {
+		GuiController.generateQuote();
+		setQuoteValues();
 	}
 }
