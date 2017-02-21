@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import gui.controller.GuiController;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -16,6 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
@@ -35,16 +36,25 @@ public class NewQuotes extends JFrame {
 	private JLabel lblSenderLink;
 	private JTextField txtSenderLink;
 	private JButton btnSaveQuote;
+	private JButton btnBackToMain;
 
 	
 	/**
 	 * Create the frame.
 	 */
 	public NewQuotes() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GuiController.mainWindow.setVisible(true);
+				dispose();
+			}
+
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewQuotes.class.getResource("/images/images.png")));
 		setResizable(false);
 		setTitle("Motivation");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 826, 410);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -62,6 +72,7 @@ public class NewQuotes extends JFrame {
 		contentPane.add(getLblSenderLink());
 		contentPane.add(getTxtSenderLink());
 		contentPane.add(getBtnSaveQuote());
+		contentPane.add(getBtnBackToMain());
 		setQuoteValues();
 	}
 	private JLabel getLblQuoteAuthor() {
@@ -172,9 +183,23 @@ public class NewQuotes extends JFrame {
 	private JButton getBtnSaveQuote() {
 		if (btnSaveQuote == null) {
 			btnSaveQuote = new JButton("Save quote");
-			btnSaveQuote.setBounds(12, 309, 787, 53);
+			btnSaveQuote.setBounds(186, 309, 622, 53);
 		}
 		return btnSaveQuote;
+	}
+	
+	private JButton getBtnBackToMain() {
+		if (btnBackToMain == null) {
+			btnBackToMain = new JButton("Back to main window");
+			btnBackToMain.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GuiController.mainWindow.setVisible(true);
+					dispose();
+				}
+			});
+			btnBackToMain.setBounds(12, 309, 162, 53);
+		}
+		return btnBackToMain;
 	}
 	
 	//MANUELNO NAPRAVLJENE METODE
@@ -192,4 +217,5 @@ public class NewQuotes extends JFrame {
 		GuiController.generateQuote();
 		setQuoteValues();
 	}
+	
 }

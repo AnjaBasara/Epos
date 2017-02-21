@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import gui.controller.GuiController;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -13,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
@@ -39,10 +44,18 @@ public class OldQuotes extends JFrame {
 	 * Create the frame.
 	 */
 	public OldQuotes() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GuiController.mainWindow.setVisible(true);
+				dispose();
+			}
+
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewQuotes.class.getResource("/images/images.png")));
 		setResizable(false);
 		setTitle("Motivation");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 826, 410);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -165,6 +178,12 @@ public class OldQuotes extends JFrame {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Back to Main Window");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GuiController.mainWindow.setVisible(true);
+					dispose();
+				}
+			});
 			btnNewButton.setBounds(12, 318, 168, 44);
 		}
 		return btnNewButton;
