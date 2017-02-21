@@ -21,7 +21,7 @@ public class GuiController {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainWindow frame = new MainWindow();
+					NewQuotes frame = new NewQuotes();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

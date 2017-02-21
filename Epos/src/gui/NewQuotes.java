@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
-public class MainWindow extends JFrame {
+public class NewQuotes extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblQuoteAuthor;
@@ -37,8 +37,8 @@ public class MainWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainWindow() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/images/images.png")));
+	public NewQuotes() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(NewQuotes.class.getResource("/images/images.png")));
 		setResizable(false);
 		setTitle("Motivation");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
