@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import java.awt.EventQueue;
 import java.text.ParseException;
@@ -8,6 +8,8 @@ import com.google.gson.JsonObject;
 
 import api.InspirationQuoteAPI;
 import domain.InspirationQuote;
+import gui.NewQuotes;
+import gui.OldQuotes;
 
 public class GuiController {
 	//Staticki atributi
