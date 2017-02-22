@@ -1,11 +1,15 @@
 package gui.controller;
 
 import java.awt.EventQueue;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import api.InspirationQuoteAPI;
@@ -86,7 +90,18 @@ public class GuiController {
 		return q;
 	}
 
-	public static void serialize(){
+	public static void serialize(InspirationQuote iq){ /////////////////////////////
+		//Google biblioteka za json, pravi objekat klase Gson
+		Gson gson = new GsonBuilder().create();
+		
+		try {
+			FileWriter writer = new FileWriter("quote.json");
+			writer.write(gson.toJson(iq));
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

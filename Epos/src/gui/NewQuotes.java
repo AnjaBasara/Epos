@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import domain.InspirationQuote;
 import gui.controller.GuiController;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -183,6 +184,11 @@ public class NewQuotes extends JFrame {
 	private JButton getBtnSaveQuote() {
 		if (btnSaveQuote == null) {
 			btnSaveQuote = new JButton("Save quote");
+			btnSaveQuote.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GuiController.serialize(quoteToBeSaved()); ///////////////////////////
+				}
+			});
 			btnSaveQuote.setBounds(186, 309, 622, 53);
 		}
 		return btnSaveQuote;
@@ -216,6 +222,19 @@ public class NewQuotes extends JFrame {
 	private void changeQuote() throws ParseException {
 		GuiController.generateQuote();
 		setQuoteValues();
+	}
+	
+	/////////////////////////////////
+	private InspirationQuote quoteToBeSaved(){
+		InspirationQuote iq = new InspirationQuote(); 
+		
+		iq.setQuoteAuthor(txtQuoteAuthor.getText());
+		iq.setQuoteLink(txtQuoteLink.getText());
+		iq.setQuoteText(areaQuoteText.getText());
+		iq.setSenderLink(txtSenderLink.getText());
+		iq.setSenderName(txtQuoteSender.getText());
+		
+		return iq;
 	}
 	
 }
