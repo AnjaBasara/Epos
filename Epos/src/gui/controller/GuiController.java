@@ -112,9 +112,9 @@ public class GuiController {
 	
 	public static void deserialize() throws JsonParseException, JsonMappingException, FileNotFoundException, IOException{
 		ObjectMapper objectMapper = new ObjectMapper();
-		InspirationQuote [] quotes = objectMapper.readValue(new FileInputStream("quotes.json"), InspirationQuote[].class);
-		listOfQuotes = Arrays.asList(quotes);
-		listOfQuotes = new ArrayList<>(listOfQuotes);
+		InspirationQuote [] quotes = objectMapper.readValue(new FileInputStream("quotes.json"), InspirationQuote[].class); //Najlakse nam je ovako da ucitamo iz fajla
+		listOfQuotes = Arrays.asList(quotes); //Parsiramo u array
+		listOfQuotes = new ArrayList<>(listOfQuotes); // Ova linija je potrebna zato sto lista napravljena pomocu Arrays.asList(quotes) ne moze da se esituje
 	}
 	
 	public static void addToList(){

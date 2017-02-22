@@ -39,6 +39,8 @@ public class OldQuotes extends JFrame {
 	private JButton btnPrevious;
 	private JButton btnNext;
 	private JButton btnNewButton;
+	private JButton btnAddYourOwnQuote;
+	private JButton btnSaveYourQuote;
 
 	
 	/**
@@ -75,6 +77,8 @@ public class OldQuotes extends JFrame {
 		contentPane.add(getBtnPrevious());
 		contentPane.add(getBtnNext());
 		contentPane.add(getBtnNewButton());
+		contentPane.add(getBtnAddYourOwnQuote());
+		contentPane.add(getBtnSaveYourQuote());
 		setQuoteValues(GuiController.listOfQuotes.get(0));
 	}
 	private JLabel getLblQuoteAuthor() {
@@ -207,5 +211,20 @@ public class OldQuotes extends JFrame {
 		txtQuoteLink.setText(quote.getQuoteLink());
 		txtSenderLink.setText(quote.getSenderLink());
 		areaQuoteText.setText(quote.getQuoteText());
+	}
+	private JButton getBtnAddYourOwnQuote() {
+		if (btnAddYourOwnQuote == null) {
+			btnAddYourOwnQuote = new JButton("Add your own quote");
+			btnAddYourOwnQuote.setBounds(196, 318, 168, 44);
+		}
+		return btnAddYourOwnQuote;
+	}
+	private JButton getBtnSaveYourQuote() {
+		if (btnSaveYourQuote == null) {
+			btnSaveYourQuote = new JButton("Save your quote");
+			btnSaveYourQuote.setEnabled(false);
+			btnSaveYourQuote.setBounds(376, 319, 162, 43);
+		}
+		return btnSaveYourQuote;
 	}
 }
