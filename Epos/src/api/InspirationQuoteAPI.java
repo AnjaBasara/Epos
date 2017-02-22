@@ -25,16 +25,18 @@ public class InspirationQuoteAPI {
 	
 	
 	//metoda koja pravi objekat klase InspirationQuote i puni ga podacima iz JSON objekta
-	public JsonObject getQuote() throws ParseException {
+	public InspirationQuote getQuote() throws ParseException {
 		try {
+			JsonObject quoteJson;
 			//poziv metode koja primenjuje GET metodu nad URL-om, rezultat je u obliku String-a
 			String result = sendGet(Constants.quoteURL);
 			
 			//Google biblioteka za json, pravi objekat klase Gson
 			Gson gson = new GsonBuilder().create();
-			
+			quoteJson = gson.fromJson(result, JsonObject.class);
 			//Izvlaci se JSON objekat
-			return gson.fromJson(result, JsonObject.class);
+ 
+			return extractQuoteFromJsonObjest(quoteJson);
 		//handlovanje izuzetaka	
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -42,6 +44,11 @@ public class InspirationQuoteAPI {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private InspirationQuote extractQuoteFromJsonObjest(JsonObject quoteJson){
+		return new InspirationQuote(quoteJson.get("quoteText").getAsString(), quoteJson.get("quoteAuthor").getAsString(), quoteJson.get("senderName").getAsString(), quoteJson.get("senderLink").getAsString(), quoteJson.get("quoteLink").getAsString());
+		
 	}
 	
 	//metoda za slanje GET zahteva za dati URL

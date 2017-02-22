@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import domain.InspirationQuote;
 import gui.controller.GuiController;
 
 import javax.swing.JLabel;
@@ -74,6 +75,7 @@ public class OldQuotes extends JFrame {
 		contentPane.add(getBtnPrevious());
 		contentPane.add(getBtnNext());
 		contentPane.add(getBtnNewButton());
+		setQuoteValues(GuiController.listOfQuotes.get(0));
 	}
 	private JLabel getLblQuoteAuthor() {
 		if (lblQuoteAuthor == null) {
@@ -164,6 +166,11 @@ public class OldQuotes extends JFrame {
 	private JButton getBtnPrevious() {
 		if (btnPrevious == null) {
 			btnPrevious = new JButton("Previous");
+			btnPrevious.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					setQuoteValues(GuiController.returnPreviousQuote());
+				}
+			});
 			btnPrevious.setBounds(520, 13, 138, 59);
 		}
 		return btnPrevious;
@@ -171,6 +178,11 @@ public class OldQuotes extends JFrame {
 	private JButton getBtnNext() {
 		if (btnNext == null) {
 			btnNext = new JButton("Next");
+			btnNext.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setQuoteValues(GuiController.returnNextQuote());
+				}
+			});
 			btnNext.setBounds(670, 13, 138, 59);
 		}
 		return btnNext;
@@ -187,5 +199,13 @@ public class OldQuotes extends JFrame {
 			btnNewButton.setBounds(12, 318, 168, 44);
 		}
 		return btnNewButton;
+	}
+	
+	private void setQuoteValues(InspirationQuote quote){
+		txtQuoteAuthor.setText(quote.getQuoteAuthor());
+		txtQuoteSender.setText(quote.getSenderName());
+		txtQuoteLink.setText(quote.getQuoteLink());
+		txtSenderLink.setText(quote.getSenderLink());
+		areaQuoteText.setText(quote.getQuoteText());
 	}
 }

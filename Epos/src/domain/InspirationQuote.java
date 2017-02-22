@@ -1,5 +1,8 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class InspirationQuote {
 
 	//atributi su po uzoru na atribute JSON objekta
@@ -9,6 +12,16 @@ public class InspirationQuote {
 	private String senderLink;
 	private String quoteLink;
 	
+	@JsonCreator
+	public InspirationQuote(@JsonProperty("quoteText")String quoteText, @JsonProperty("quoteAuthor")String quoteAuthor, @JsonProperty("senderName")String senderName, @JsonProperty("senderLink")String senderLink,
+			@JsonProperty("quoteLink")String quoteLink) {
+		super();
+		this.quoteText = quoteText;
+		this.quoteAuthor = quoteAuthor;
+		this.senderName = senderName;
+		this.senderLink = senderLink;
+		this.quoteLink = quoteLink;
+	}
 	//geteri i seteri za atribute
 	public String getQuoteText() {
 		return quoteText;

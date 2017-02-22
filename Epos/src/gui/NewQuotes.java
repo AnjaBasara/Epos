@@ -186,7 +186,7 @@ public class NewQuotes extends JFrame {
 			btnSaveQuote = new JButton("Save quote");
 			btnSaveQuote.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					GuiController.serialize(quoteToBeSaved()); ///////////////////////////
+					GuiController.addToList();
 				}
 			});
 			btnSaveQuote.setBounds(186, 309, 622, 53);
@@ -224,17 +224,6 @@ public class NewQuotes extends JFrame {
 		setQuoteValues();
 	}
 	
-	/////////////////////////////////
-	private InspirationQuote quoteToBeSaved(){
-		InspirationQuote iq = new InspirationQuote(); 
-		
-		iq.setQuoteAuthor(txtQuoteAuthor.getText());
-		iq.setQuoteLink(txtQuoteLink.getText());
-		iq.setQuoteText(areaQuoteText.getText());
-		iq.setSenderLink(txtSenderLink.getText());
-		iq.setSenderName(txtQuoteSender.getText());
-		
-		return iq;
-	}
+	
 	
 }
