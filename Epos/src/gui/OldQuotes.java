@@ -21,6 +21,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class OldQuotes extends JFrame {
 
@@ -131,6 +132,7 @@ public class OldQuotes extends JFrame {
 	private JTextArea getAreaQuoteText() {
 		if (areaQuoteText == null) {
 			areaQuoteText = new JTextArea();
+			areaQuoteText.setFont(new Font("Century Gothic", Font.ITALIC, 14));
 			areaQuoteText.setEditable(false);
 		}
 		return areaQuoteText;

@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,6 +21,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 
 public class NewQuotes extends JFrame {
 
@@ -145,6 +147,7 @@ public class NewQuotes extends JFrame {
 	private JTextArea getAreaQuoteText() {
 		if (areaQuoteText == null) {
 			areaQuoteText = new JTextArea();
+			areaQuoteText.setFont(new Font("Century Gothic", Font.ITALIC, 14));
 			areaQuoteText.setEditable(false);
 		}
 		return areaQuoteText;
