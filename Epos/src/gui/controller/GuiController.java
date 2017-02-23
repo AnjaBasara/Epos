@@ -1,16 +1,21 @@
 package gui.controller;
 import java.awt.EventQueue;
+import java.awt.TrayIcon.MessageType;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -39,10 +44,17 @@ public class GuiController {
 	
 	
 	public static void main(String[] args) throws Exception {
+		
+		if(!netIsAvailable()){
+			JOptionPane.showInternalMessageDialog
+					(new MainWindow().getContentPane(), "This app needs internet connection to run!","No internet connection", JOptionPane.ERROR_MESSAGE);
+				System.exit(1);
+			}
+		else{
 		deserialize();
 		generateQuote();
 		showMainWindow();
-		
+		}
 	}
 	
 	public static void showOldQuotes(){
@@ -146,5 +158,17 @@ public class GuiController {
 	public static InspirationQuote returnNextQuote(){
 		if(num < listOfQuotes.size() - 1) num++; //Mozda da se izbaci greska, tj da se kaze korisniku da nema vise quotova dalje, vazi i za preth. metodu
 		return listOfQuotes.get(num);
+	}
+	private static boolean netIsAvailable() {
+	    try {
+	        final URL url = new URL("http://www.google.com");
+	        final URLConnection conn = url.openConnection();
+	        conn.connect();
+	        return true;
+	    } catch (MalformedURLException e) {
+	        throw new RuntimeException(e);
+	    } catch (IOException e) {
+	        return false;
+	    }
 	}
 }
