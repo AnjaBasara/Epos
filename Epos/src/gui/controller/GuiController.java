@@ -32,6 +32,8 @@ public class GuiController {
 	public static JsonObject quoteJson;
 	public static MainWindow mainWindow;
 	public static List<InspirationQuote> listOfQuotes = new ArrayList<>();
+
+	
 	public static int num = 0; //Broji quotove za OldQuote, pogledati metode returnPreviousQuote i returnNextQuote
 	//ovde pisite staticke metode da bi se lakse pozivale iz MainWindow
 	
@@ -89,7 +91,7 @@ public class GuiController {
 		InspirationQuoteAPI comm = new InspirationQuoteAPI();	
 		quote = comm.getQuote();
 	}
-	
+		
 	
 
 	public static void serialize() throws IOException{ /////////////////////////////
@@ -131,6 +133,7 @@ public class GuiController {
 		if (option == JOptionPane.YES_OPTION) {
 			//Ovde ide za serijalizaciju linija
 			serialize();
+			System.out.println("cuvaju se quoteovi");
 			System.exit(0);
 		}
 	}

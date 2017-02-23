@@ -215,6 +215,14 @@ public class OldQuotes extends JFrame {
 	private JButton getBtnAddYourOwnQuote() {
 		if (btnAddYourOwnQuote == null) {
 			btnAddYourOwnQuote = new JButton("Add your own quote");
+			btnAddYourOwnQuote.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					enableFields();
+					
+				}
+
+				
+			});
 			btnAddYourOwnQuote.setBounds(196, 318, 168, 44);
 		}
 		return btnAddYourOwnQuote;
@@ -222,9 +230,46 @@ public class OldQuotes extends JFrame {
 	private JButton getBtnSaveYourQuote() {
 		if (btnSaveYourQuote == null) {
 			btnSaveYourQuote = new JButton("Save your quote");
+			btnSaveYourQuote.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					InspirationQuote myQuote = generateMyQuote();
+					GuiController.listOfQuotes.add(myQuote);
+				}
+			});
 			btnSaveYourQuote.setEnabled(false);
 			btnSaveYourQuote.setBounds(376, 319, 162, 43);
 		}
 		return btnSaveYourQuote;
+	}
+	//MANUELNO PRAVLJENE METODE
+	
+	private void enableFields(){
+		
+		getTxtQuoteAuthor().setEditable(true);
+		getTxtQuoteLink().setEditable(true);
+		getTxtQuoteSender().setEditable(true);
+		getTxtSenderLink().setEditable(true);
+		getAreaQuoteText().setEditable(true);
+		getBtnSaveYourQuote().setEnabled(true);
+		
+		getTxtQuoteAuthor().setText("");
+		getTxtQuoteLink().setText("");
+		getTxtQuoteSender().setText("");
+		getTxtSenderLink().setText("");
+		getAreaQuoteText().setText("");
+		
+	}
+	private InspirationQuote generateMyQuote(){
+		
+		String quoteAuthor=getTxtQuoteAuthor().getText();
+		String quoteLink=getTxtQuoteLink().getText();
+		String quoteText=getAreaQuoteText().getText();
+		String senderName=getTxtQuoteSender().getText();
+		String senderLink=getTxtSenderLink().getText();
+		
+		InspirationQuote newQuote = new InspirationQuote(quoteText, quoteAuthor, senderName, senderLink, quoteLink);
+		return newQuote;
+		
+		
 	}
 }
