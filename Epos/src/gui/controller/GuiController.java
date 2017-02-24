@@ -33,30 +33,26 @@ import gui.OldQuotes;
 
 public class GuiController {
 	//Staticki atributi
-	public static InspirationQuote quote;
-	public static JsonObject quoteJson;
-	public static MainWindow mainWindow;
-	public static List<InspirationQuote> listOfQuotes = new ArrayList<>();
-
-	
+	public static InspirationQuote quote; //Quote koji je trenutno prikazan u NewQuotes prozoru
+	public static MainWindow mainWindow; //Prozor koji se prvi otvara
+	public static List<InspirationQuote> listOfQuotes = new ArrayList<>(); //Lista sacuvanih quote-ova	
 	public static int num = 0; //Broji quotove za OldQuote, pogledati metode returnPreviousQuote i returnNextQuote
-	//ovde pisite staticke metode da bi se lakse pozivale iz MainWindow
-	
-	
+
 	public static void main(String[] args) throws Exception {
-		
+		//Provera internet konekcije
 		if(!netIsAvailable()){
 			JOptionPane.showInternalMessageDialog
 					(new MainWindow().getContentPane(), "This app needs internet connection to run!","No internet connection", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
 		else{
-		deserialize();
-		generateQuote();
-		showMainWindow();
+		deserialize(); //Ucitavamo quote-ove iz json fajla
+		generateQuote(); //Pravimo quote za NewQuotes prozor
+		showMainWindow(); //Pocetak
 		}
 	}
 	
+	//Metoda za pokretanje OldQuotes prozora
 	public static void showOldQuotes(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -71,6 +67,7 @@ public class GuiController {
 		});
 	}
 	
+	//Metoda za pokretanje MainWindow
 	public static void showMainWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -84,6 +81,7 @@ public class GuiController {
 		});
 	}
 	
+	//Metoda za pokretanje NewQuotes prozora
 	public static void showNewQuotes(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -99,31 +97,20 @@ public class GuiController {
 		});
 	}
 	
+	//Uzimanje quote-a sa interneta
 	public static void generateQuote() throws ParseException{
 		InspirationQuoteAPI comm = new InspirationQuoteAPI();	
 		quote = comm.getQuote();
 	}
 		
-	
-
-	public static void serialize() throws IOException{ /////////////////////////////
-		//Google biblioteka za json, pravi objekat klase Gson
-		/*Gson gson = new GsonBuilder().create();
-		
-		try {
-			FileWriter writer = new FileWriter("quote.json");
-			writer.write(gson.toJson(quote)); // Marina: Gore imamo atribut quote, koji je trenutno prikazan
-			writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-
+	//Serijalizacija liste quotova koje korisnik zeli sacuvati pomocu ObjectMapper klase
+	public static void serialize() throws IOException{ 
 		ObjectMapper  mapper = new ObjectMapper();
 		mapper.writeValue(new FileOutputStream("quotes.json"), listOfQuotes);
 		
 	}
 	
+	//Deserijalizacija
 	public static void deserialize() throws JsonParseException, JsonMappingException, FileNotFoundException, IOException{
 		ObjectMapper objectMapper = new ObjectMapper();
 		InspirationQuote [] quotes = objectMapper.readValue(new FileInputStream("quotes.json"), InspirationQuote[].class); //Najlakse nam je ovako da ucitamo iz fajla
@@ -131,12 +118,13 @@ public class GuiController {
 		listOfQuotes = new ArrayList<>(listOfQuotes); // Ova linija je potrebna zato sto lista napravljena pomocu Arrays.asList(quotes) ne moze da se esituje
 	}
 	
+	//Dodavanje quote-a u listu
 	public static void addToList(){
 		listOfQuotes.add(quote);
 	}
 
+	//Izlazak iz aplikacije
 	public static void exitApp() throws IOException {
-		// TODO Auto-generated method stub
 		int option = JOptionPane.showConfirmDialog(mainWindow.getContentPane(), "Are you sure you want to exit?",
 				"Exit", JOptionPane.YES_NO_OPTION);
 
@@ -150,15 +138,19 @@ public class GuiController {
 		}
 	}
 	
+	//Za Prozor OldQuotes, sluzi za navigaciju kroz listu
 	public static InspirationQuote returnPreviousQuote(){
 		if(num > 0) num--;
 		return listOfQuotes.get(num);
 	}
 	
+	//Za Prozor OldQuotes, sluzi za navigaciju kroz listu
 	public static InspirationQuote returnNextQuote(){
 		if(num < listOfQuotes.size() - 1) num++; //Mozda da se izbaci greska, tj da se kaze korisniku da nema vise quotova dalje, vazi i za preth. metodu
 		return listOfQuotes.get(num);
 	}
+	
+	//Provera internet konekcije
 	private static boolean netIsAvailable() {
 	    try {
 	        final URL url = new URL("http://www.google.com");
@@ -170,5 +162,26 @@ public class GuiController {
 	    } catch (IOException e) {
 	        return false;
 	    }
+	}
+
+	//Prebaci num na poslednji element, koristi se kada korisnik pise svoj quote
+	public static void setNumLast() {
+		num = listOfQuotes.size() - 1;
+	}
+	
+	//Vrati trenutni quote
+	public static InspirationQuote getCurrentQuote(){
+		return listOfQuotes.get(num);
+	}
+
+	//Izbaci quote
+	public static void removeQuote() {
+		listOfQuotes.remove(num);
+		if(listOfQuotes.size() != 0){
+			if(num == listOfQuotes.size()) num--; //Ako smo na poslednje quote-u, pomeri za jedan unazad		
+		}else{
+			num = -1;
+		}
+		
 	}
 }

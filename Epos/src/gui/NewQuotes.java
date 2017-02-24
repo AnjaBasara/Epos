@@ -202,6 +202,7 @@ public class NewQuotes extends JFrame {
 			btnBackToMain = new JButton("Back to main window");
 			btnBackToMain.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					//Unistavamo ovaj prozor i vracamo se na MainWindow
 					GuiController.mainWindow.setVisible(true);
 					dispose();
 				}
@@ -222,6 +223,7 @@ public class NewQuotes extends JFrame {
 		areaQuoteText.setText(GuiController.quote.getQuoteText());
 	}
 	
+	//Pozivamo iz GUIController-a metodu za generisanje novog quote-a
 	private void changeQuote() throws ParseException {
 		GuiController.generateQuote();
 		setQuoteValues();

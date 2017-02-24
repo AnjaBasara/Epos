@@ -42,6 +42,7 @@ public class OldQuotes extends JFrame {
 	private JButton btnNewButton;
 	private JButton btnAddYourOwnQuote;
 	private JButton btnSaveYourQuote;
+	private JButton btnDeleteThisQuote;
 
 	
 	/**
@@ -80,7 +81,9 @@ public class OldQuotes extends JFrame {
 		contentPane.add(getBtnNewButton());
 		contentPane.add(getBtnAddYourOwnQuote());
 		contentPane.add(getBtnSaveYourQuote());
-		setQuoteValues(GuiController.listOfQuotes.get(0));
+		contentPane.add(getBtnDeleteThisQuote());
+		if(!GuiController.listOfQuotes.isEmpty())
+			setQuoteValues(GuiController.listOfQuotes.get(0));
 	}
 	private JLabel getLblQuoteAuthor() {
 		if (lblQuoteAuthor == null) {
@@ -234,8 +237,12 @@ public class OldQuotes extends JFrame {
 			btnSaveYourQuote = new JButton("Save your quote");
 			btnSaveYourQuote.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					//Dodavanje u listu korisnikovog quote-a
 					InspirationQuote myQuote = generateMyQuote();
 					GuiController.listOfQuotes.add(myQuote);
+					disableFields();
+					getBtnSaveYourQuote().setEnabled(false);
+					GuiController.setNumLast();
 				}
 			});
 			btnSaveYourQuote.setEnabled(false);
@@ -243,8 +250,27 @@ public class OldQuotes extends JFrame {
 		}
 		return btnSaveYourQuote;
 	}
+	
+	private JButton getBtnDeleteThisQuote() {
+		if (btnDeleteThisQuote == null) {
+			btnDeleteThisQuote = new JButton("Delete this quote");
+			btnDeleteThisQuote.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GuiController.removeQuote(); //Brisanje iz liste
+					if(!GuiController.listOfQuotes.isEmpty())setQuoteValues(GuiController.getCurrentQuote()); //Azuriranje quote-a
+					else setEmptyFields();
+				}
+
+				
+			});
+			btnDeleteThisQuote.setBounds(550, 318, 162, 44);
+		}
+		return btnDeleteThisQuote;
+	}
+	
 	//MANUELNO PRAVLJENE METODE
 	
+	//Metoda za enable-ovanje i praznjenje polja, kako bi korisnik mogao da ih unosi
 	private void enableFields(){
 		
 		getTxtQuoteAuthor().setEditable(true);
@@ -254,13 +280,11 @@ public class OldQuotes extends JFrame {
 		getAreaQuoteText().setEditable(true);
 		getBtnSaveYourQuote().setEnabled(true);
 		
-		getTxtQuoteAuthor().setText("");
-		getTxtQuoteLink().setText("");
-		getTxtQuoteSender().setText("");
-		getTxtSenderLink().setText("");
-		getAreaQuoteText().setText("");
+		setEmptyFields();
 		
 	}
+	
+	//Pravljenje InspirationQuote-a od polja koje je korisnik uneo
 	private InspirationQuote generateMyQuote(){
 		
 		String quoteAuthor=getTxtQuoteAuthor().getText();
@@ -274,4 +298,24 @@ public class OldQuotes extends JFrame {
 		
 		
 	}
+	
+	//Kada korisnik snimi svoj quote, polja se disabluju
+	private void disableFields(){		
+		getTxtQuoteAuthor().setEditable(false);
+		getTxtQuoteLink().setEditable(false);
+		getTxtQuoteSender().setEditable(false);
+		getTxtSenderLink().setEditable(false);
+		getAreaQuoteText().setEditable(false);
+		getBtnSaveYourQuote().setEnabled(false);		
+	}
+	
+	//Postavljanje polja, da budu prazna
+	private void setEmptyFields() {
+		getTxtQuoteAuthor().setText("");
+		getTxtQuoteLink().setText("");
+		getTxtQuoteSender().setText("");
+		getTxtSenderLink().setText("");
+		getAreaQuoteText().setText("");
+	}
+	
 }
