@@ -41,10 +41,6 @@ public class NewQuotes extends JFrame {
 	private JButton btnSaveQuote;
 	private JButton btnBackToMain;
 
-	
-	/**
-	 * Create the frame.
-	 */
 	public NewQuotes() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -52,7 +48,6 @@ public class NewQuotes extends JFrame {
 				GuiController.mainWindow.setVisible(true);
 				dispose();
 			}
-
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewQuotes.class.getResource("/images/images.png")));
 		setResizable(false);
@@ -122,8 +117,6 @@ public class NewQuotes extends JFrame {
 						e.printStackTrace();
 					}
 				}
-
-				
 			});
 			btnGenerateQuote.setBounds(524, 9, 275, 52);
 		}
@@ -196,7 +189,6 @@ public class NewQuotes extends JFrame {
 		}
 		return btnSaveQuote;
 	}
-	
 	private JButton getBtnBackToMain() {
 		if (btnBackToMain == null) {
 			btnBackToMain = new JButton("Back to main window");

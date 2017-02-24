@@ -42,7 +42,8 @@ public class GuiController {
 		//Provera internet konekcije
 		if(!netIsAvailable()){
 			JOptionPane.showInternalMessageDialog
-					(new MainWindow().getContentPane(), "This app needs internet connection to run!","No internet connection", JOptionPane.ERROR_MESSAGE);
+					(new MainWindow().getContentPane(), "This app needs internet connection to run!",
+							"No internet connection", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
 		else{
@@ -107,15 +108,16 @@ public class GuiController {
 	public static void serialize() throws IOException{ 
 		ObjectMapper  mapper = new ObjectMapper();
 		mapper.writeValue(new FileOutputStream("quotes.json"), listOfQuotes);
-		
 	}
 	
 	//Deserijalizacija
 	public static void deserialize() throws JsonParseException, JsonMappingException, FileNotFoundException, IOException{
 		ObjectMapper objectMapper = new ObjectMapper();
-		InspirationQuote [] quotes = objectMapper.readValue(new FileInputStream("quotes.json"), InspirationQuote[].class); //Najlakse nam je ovako da ucitamo iz fajla
+		//Najlakse nam je ovako da ucitamo iz fajla
+		InspirationQuote [] quotes = objectMapper.readValue(new FileInputStream("quotes.json"), InspirationQuote[].class);
 		listOfQuotes = Arrays.asList(quotes); //Parsiramo u array
-		listOfQuotes = new ArrayList<>(listOfQuotes); // Ova linija je potrebna zato sto lista napravljena pomocu Arrays.asList(quotes) ne moze da se esituje
+		// Ova linija je potrebna zato sto lista napravljena pomocu Arrays.asList(quotes) ne moze da se edituje
+		listOfQuotes = new ArrayList<>(listOfQuotes); 
 	}
 	
 	//Dodavanje quote-a u listu
@@ -146,7 +148,8 @@ public class GuiController {
 	
 	//Za Prozor OldQuotes, sluzi za navigaciju kroz listu
 	public static InspirationQuote returnNextQuote(){
-		if(num < listOfQuotes.size() - 1) num++; //Mozda da se izbaci greska, tj da se kaze korisniku da nema vise quotova dalje, vazi i za preth. metodu
+		//Mozda da se izbaci greska, tj da se kaze korisniku da nema vise quotova dalje, vazi i za preth. metodu
+		if(num < listOfQuotes.size() - 1) num++; 
 		return listOfQuotes.get(num);
 	}
 	

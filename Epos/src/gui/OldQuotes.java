@@ -44,10 +44,6 @@ public class OldQuotes extends JFrame {
 	private JButton btnSaveYourQuote;
 	private JButton btnDeleteThisQuote;
 
-	
-	/**
-	 * Create the frame.
-	 */
 	public OldQuotes() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -55,7 +51,6 @@ public class OldQuotes extends JFrame {
 				GuiController.mainWindow.setVisible(true);
 				dispose();
 			}
-
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewQuotes.class.getResource("/images/images.png")));
 		setResizable(false);
@@ -223,10 +218,7 @@ public class OldQuotes extends JFrame {
 			btnAddYourOwnQuote.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					enableFields();
-					
 				}
-
-				
 			});
 			btnAddYourOwnQuote.setBounds(196, 318, 168, 44);
 		}
@@ -260,8 +252,6 @@ public class OldQuotes extends JFrame {
 					if(!GuiController.listOfQuotes.isEmpty())setQuoteValues(GuiController.getCurrentQuote()); //Azuriranje quote-a
 					else setEmptyFields();
 				}
-
-				
 			});
 			btnDeleteThisQuote.setBounds(550, 318, 162, 44);
 		}
@@ -294,9 +284,7 @@ public class OldQuotes extends JFrame {
 		String senderLink=getTxtSenderLink().getText();
 		
 		InspirationQuote newQuote = new InspirationQuote(quoteText, quoteAuthor, senderName, senderLink, quoteLink);
-		return newQuote;
-		
-		
+		return newQuote;	
 	}
 	
 	//Kada korisnik snimi svoj quote, polja se disabluju
@@ -317,5 +305,4 @@ public class OldQuotes extends JFrame {
 		getTxtSenderLink().setText("");
 		getAreaQuoteText().setText("");
 	}
-	
 }

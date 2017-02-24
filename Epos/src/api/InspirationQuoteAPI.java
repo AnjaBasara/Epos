@@ -21,9 +21,6 @@ import util.Constants;
 
 public class InspirationQuoteAPI {
 	
-
-	
-	
 	//metoda koja pravi objekat klase InspirationQuote i puni ga podacima iz JSON objekta
 	public InspirationQuote getQuote() throws ParseException {
 		try {
@@ -46,9 +43,11 @@ public class InspirationQuoteAPI {
 		return null;
 	}
 	
+	//Vraca objekat tipa InspirationQuote iz JSON objekta
 	private InspirationQuote extractQuoteFromJsonObjest(JsonObject quoteJson){
-		return new InspirationQuote(quoteJson.get("quoteText").getAsString(), quoteJson.get("quoteAuthor").getAsString(), quoteJson.get("senderName").getAsString(), quoteJson.get("senderLink").getAsString(), quoteJson.get("quoteLink").getAsString());
-		
+		return new InspirationQuote(quoteJson.get("quoteText").getAsString(), 
+				quoteJson.get("quoteAuthor").getAsString(), quoteJson.get("senderName").getAsString(), 
+				quoteJson.get("senderLink").getAsString(), quoteJson.get("quoteLink").getAsString());		
 	}
 	
 	//metoda za slanje GET zahteva za dati URL

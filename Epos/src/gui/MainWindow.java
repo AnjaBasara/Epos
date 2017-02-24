@@ -24,14 +24,6 @@ public class MainWindow extends JFrame {
 	private JButton btnNewQuotes;
 	private JButton btnOldQuotes;
 
-	/**
-	 * Launch the application.
-	 */
-	
-
-	/**
-	 * Create the frame.
-	 */
 	public MainWindow() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -43,8 +35,8 @@ public class MainWindow extends JFrame {
 					e1.printStackTrace();
 				}
 			}
-
 		});
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/images/images.png")));
 		setTitle("Motivation");
 		setResizable(false);

@@ -13,7 +13,10 @@ public class InspirationQuote {
 	private String quoteLink;
 	
 	@JsonCreator
-	public InspirationQuote(@JsonProperty("quoteText")String quoteText, @JsonProperty("quoteAuthor")String quoteAuthor, @JsonProperty("senderName")String senderName, @JsonProperty("senderLink")String senderLink,
+	public InspirationQuote(@JsonProperty("quoteText")String quoteText,
+			@JsonProperty("quoteAuthor")String quoteAuthor, 
+			@JsonProperty("senderName")String senderName,
+			@JsonProperty("senderLink")String senderLink,
 			@JsonProperty("quoteLink")String quoteLink) {
 		super();
 		this.quoteText = quoteText;
@@ -37,8 +40,7 @@ public class InspirationQuote {
 	}
 	public String getSenderName() {
 		return senderName;
-	}
-	public void setSenderName(String senderName) {
+	}	public void setSenderName(String senderName) {
 		this.senderName = senderName;
 	}
 	public String getSenderLink() {
@@ -56,8 +58,10 @@ public class InspirationQuote {
 	//toString metoda za ispis objekta
 	@Override
 	public String toString() {
-		return "InspirationQuote [quoteText=" + quoteText + ", quoteAuthor=" + quoteAuthor + ", senderName="
-				+ senderName + ", senderLink=" + senderLink + ", quoteLink=" + quoteLink + "]";
+		return "InspirationQuote [quoteText=" + quoteText
+				+ ", quoteAuthor=" + quoteAuthor + ", senderName="
+				+ senderName + ", senderLink=" + senderLink + 
+				", quoteLink=" + quoteLink + "]";
 	}
 	
 	
