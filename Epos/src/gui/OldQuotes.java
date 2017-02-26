@@ -218,6 +218,7 @@ public class OldQuotes extends JFrame {
 			btnAddYourOwnQuote.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					enableFields();
+					getBtnDeleteThisQuote().setEnabled(false);
 				}
 			});
 			btnAddYourOwnQuote.setBounds(196, 318, 168, 44);
@@ -235,6 +236,7 @@ public class OldQuotes extends JFrame {
 					disableFields();
 					getBtnSaveYourQuote().setEnabled(false);
 					GuiController.setNumLast();
+					getBtnDeleteThisQuote().setEnabled(true);
 				}
 			});
 			btnSaveYourQuote.setEnabled(false);
